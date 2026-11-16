@@ -70,7 +70,25 @@
                         aria-describedby="error-direccion"></textarea>
               <span id="error-direccion" class="error-msg" aria-live="polite"></span>
             </div>
+            <!-- Nuevo campo de Medio de Pago -->
+           <div class="mb-3">
+              <label for="metodo-pago" class="form-label">Medio de pago:</label>
+              <select class="form-select" id="metodo-pago" name="metodo_pago" required aria-describedby="error-pago">
+                <option value="" selected disabled>Selecciona un método de pago</option>
+                <option value="yape">Yape / Plin</option>
+                <option value="transferencia">Transferencia Bancaria</option>
+                <option value="efectivo">Efectivo contra entrega</option>
+              </select>
+              <span id="error-pago" class="error-msg" aria-live="polite"></span>
+            </div>
 
+            <!-- NUEVO: Campo dinámico que aparece según el pago -->
+            <div class="mb-3 d-none" id="contenedor-operacion">
+              <label for="nro-operacion" class="form-label" id="label-operacion">Número de operación:</label>
+              <input type="text" class="form-control" id="nro-operacion" name="nro_operacion"
+                     placeholder="Ingresa el número de tu voucher">
+              <span id="error-operacion" class="error-msg" aria-live="polite"></span>
+            </div>
             <div class="form-check mb-4">
               <input class="form-check-input" type="checkbox" id="consentimiento"
                      name="consentimiento" required>
@@ -84,6 +102,68 @@
       </div>
     </div>
   </main>
+  <script>
+  document.getElementById('form-pedido').addEventListener('submit', function(event) {
+    // Evitamos que el formulario se envíe por defecto
+    event.preventDefault();
+
+    let esValido = true;
+
+    // 1. Validar Nombre
+    const inputNombre = document.getElementById('nombre');
+    const errorNombre = document.getElementById('error-nombre');
+    if (inputNombre.value.trim() === '') {
+      errorNombre.textContent = 'Por favor, ingresa tu nombre completo.';
+      inputNombre.classList.add('is-invalid');
+      esValido = false;
+    } else {
+      errorNombre.textContent = '';
+      inputNombre.classList.remove('is-invalid');
+    }
+
+    // 2. Validar Teléfono
+    const inputTelefono = document.getElementById('telefono');
+    const errorTelefono = document.getElementById('error-telefono');
+    if (inputTelefono.value.trim() === '') {
+      errorTelefono.textContent = 'Por favor, ingresa un número de teléfono o celular válido.';
+      inputTelefono.classList.add('is-invalid');
+      esValido = false;
+    } else {
+      errorTelefono.textContent = '';
+      inputTelefono.classList.remove('is-invalid');
+    }
+
+    // 3. Validar Dirección
+    const inputDireccion = document.getElementById('direccion');
+    const errorDireccion = document.getElementById('error-direccion');
+    if (inputDireccion.value.trim() === '') {
+      errorDireccion.textContent = 'Por favor, ingresa tu dirección de entrega.';
+      inputDireccion.classList.add('is-invalid');
+      esValido = false;
+    } else {
+      errorDireccion.textContent = '';
+      inputDireccion.classList.remove('is-invalid');
+    }
+
+    // 4. Validar Checkbox de Consentimiento
+    const checkConsentimiento = document.getElementById('consentimiento');
+    if (!checkConsentimiento.checked) {
+      // Puedes mostrar un aviso general si no acepta las políticas
+      document.getElementById('mensaje-respuesta').textContent = 'Debes aceptar el uso de datos para continuar.';
+      document.getElementById('mensaje-respuesta').className = 'text-danger mt-3 mb-0';
+      esValido = false;
+    }
+
+    // Si todo está correcto, procesamos el pedido
+    if (esValido) {
+      document.getElementById('mensaje-respuesta').textContent = '¡Pedido registrado con éxito! Nos pondremos en contacto contigo.';
+      document.getElementById('mensaje-respuesta').className = 'text-success mt-3 mb-0';
+      
+      // Aquí puedes vaciar el formulario si deseas:
+      // this.reset();
+    }
+  });
+</script>
 
   <!-- Pie de página en tres columnas -->
   <footer class="border-top py-4 mt-5">
@@ -101,6 +181,111 @@
       <p class="texto-suave small mt-4 mb-0">&copy; 2026 Kori Store - Iniciativa Académica de Conservación</p>
     </div>
   </footer>
+<script>
+  const selectPago = document.getElementById('metodo-pago');
+  const contenedorOperacion = document.getElementById('contenedor-operacion');
+  const inputOperacion = document.getElementById('nro-operacion');
+  const labelOperacion = document.getElementById('label-operacion');
 
+  // 1. Mostrar u ocultar campo de operación dinámicamente al elegir el pago
+  selectPago.addEventListener('change', function() {
+    const valor = this.value;
+    if (valor === 'yape' || valor === 'transferencia') {
+      contenedorOperacion.classList.remove('d-none'); // Muestra el campo
+      inputOperacion.required = true;
+      
+      if (valor === 'yape') {
+        labelOperacion.textContent = 'Número de Yape / Plin o Código de Transferencia:';
+      } else {
+        labelOperacion.textContent = 'Número de operación de transferencia:';
+      }
+    } else {
+      // Si es efectivo contra entrega u otro, lo oculta
+      contenedorOperacion.classList.add('d-none');
+      inputOperacion.required = false;
+      inputOperacion.value = ''; // Limpia el valor si cambia de opinión
+    }
+  });
+
+  // 2. Validación completa al enviar el formulario
+  document.getElementById('form-pedido').addEventListener('submit', function(event) {
+    event.preventDefault();
+    let esValido = true;
+
+    // Nombre
+    const inputNombre = document.getElementById('nombre');
+    const errorNombre = document.getElementById('error-nombre');
+    if (inputNombre.value.trim() === '') {
+      errorNombre.textContent = 'Por favor, ingresa tu nombre completo.';
+      inputNombre.classList.add('is-invalid');
+      esValido = false;
+    } else {
+      errorNombre.textContent = '';
+      inputNombre.classList.remove('is-invalid');
+    }
+
+    // Teléfono
+    const inputTelefono = document.getElementById('telefono');
+    const errorTelefono = document.getElementById('error-telefono');
+    if (inputTelefono.value.trim() === '') {
+      errorTelefono.textContent = 'Por favor, ingresa un número de teléfono o celular válido.';
+      inputTelefono.classList.add('is-invalid');
+      esValido = false;
+    } else {
+      errorTelefono.textContent = '';
+      inputTelefono.classList.remove('is-invalid');
+    }
+
+    // Dirección
+    const inputDireccion = document.getElementById('direccion');
+    const errorDireccion = document.getElementById('error-direccion');
+    if (inputDireccion.value.trim() === '') {
+      errorDireccion.textContent = 'Por favor, ingresa tu dirección de entrega.';
+      inputDireccion.classList.add('is-invalid');
+      esValido = false;
+    } else {
+      errorDireccion.textContent = '';
+      inputDireccion.classList.remove('is-invalid');
+    }
+
+    // Método de Pago
+    const errorPago = document.getElementById('error-pago');
+    if (selectPago.value === '') {
+      errorPago.textContent = 'Por favor, selecciona un método de pago.';
+      selectPago.classList.add('is-invalid');
+      esValido = false;
+    } else {
+      errorPago.textContent = '';
+      selectPago.classList.remove('is-invalid');
+    }
+
+    // Validación del Número de Operación (Solo si está visible)
+    const errorOperacion = document.getElementById('error-operacion');
+    if (!contenedorOperacion.classList.contains('d-none')) {
+      if (inputOperacion.value.trim() === '') {
+        errorOperacion.textContent = 'Por favor, ingresa el número de operación correspondiente.';
+        inputOperacion.classList.add('is-invalid');
+        esValido = false;
+      } else {
+        errorOperacion.textContent = '';
+        inputOperacion.classList.remove('is-invalid');
+      }
+    }
+
+    // Consentimiento
+    const checkConsentimiento = document.getElementById('consentimiento');
+    if (!checkConsentimiento.checked) {
+      document.getElementById('mensaje-respuesta').textContent = 'Debes aceptar el uso de datos para continuar.';
+      document.getElementById('mensaje-respuesta').className = 'text-danger mt-3 mb-0';
+      esValido = false;
+    }
+
+    // Si todo está correcto
+    if (esValido) {
+      document.getElementById('mensaje-respuesta').textContent = '¡Pedido registrado con éxito! Nos pondremos en contacto contigo.';
+      document.getElementById('mensaje-respuesta').className = 'text-success mt-3 mb-0';
+    }
+  });
+</script>
 </body>
 </html>
