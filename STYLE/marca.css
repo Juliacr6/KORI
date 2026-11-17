@@ -1,0 +1,456 @@
+/* ==========================================
+   KORI STORE - marca.css  (versión minimalista)
+   Se carga DESPUÉS de Bootstrap y solo cambia sus variables --bs-*.
+   Una sola paleta: tinta oscura + verde de acento sobre crema.
+   ========================================== */
+
+/* ===== 1. Paleta ===== */
+:root {
+  --tinta: #1f2421;
+  --verde: #2d6a4f;
+  --muted: #6b665a;            /* 5.4:1 sobre crema */
+  --linea: #e8e4d8;
+  --hover: #efece1;
+  --bs-body-bg: #fcfbf7;
+  --bs-body-color: #2b2b2b;
+  --bs-body-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --bs-border-color: var(--linea);
+  --bs-link-color: var(--verde);
+  --bs-link-hover-color: var(--tinta);
+}
+
+h1, h2, h3, h4, h5 { color: var(--tinta); }
+
+/* ===== 2. Botones: planos, de bordes suaves ===== */
+.btn {
+  --bs-btn-border-radius: 0.4rem;
+  --bs-btn-font-weight: 500;
+  --bs-btn-font-size: 0.95rem;
+  box-shadow: none;
+}
+
+/* Principal: tinta sólida, hover verde */
+.btn-marca {
+  --bs-btn-color: #ffffff;
+  --bs-btn-bg: var(--tinta);
+  --bs-btn-border-color: var(--tinta);
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-hover-bg: var(--verde);
+  --bs-btn-hover-border-color: var(--verde);
+  --bs-btn-active-color: #ffffff;
+  --bs-btn-active-bg: var(--verde);
+  --bs-btn-active-border-color: var(--verde);
+  --bs-btn-focus-shadow-rgb: 31, 36, 33;
+}
+
+/* Secundario: texto sin borde, fondo suave al pasar el mouse */
+.btn-ghost {
+  --bs-btn-color: var(--tinta);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: transparent;
+  --bs-btn-hover-color: var(--tinta);
+  --bs-btn-hover-bg: var(--hover);
+  --bs-btn-hover-border-color: transparent;
+  --bs-btn-active-color: var(--tinta);
+  --bs-btn-active-bg: var(--linea);
+  --bs-btn-active-border-color: transparent;
+  --bs-btn-focus-shadow-rgb: 31, 36, 33;
+}
+
+/* ===== 3. Barra de navegación clara ===== */
+.navbar {
+  --bs-navbar-brand-color: var(--tinta);
+  --bs-navbar-brand-hover-color: var(--verde);
+  background-color: var(--bs-body-bg);
+}
+
+
+/* ===== 4. Portada ===== */
+.hero h1 { letter-spacing: -0.5px; }
+.hero .lead { color: var(--muted); font-size: 1.1rem; }
+
+/* ===== 5. Catálogo ===== */
+.producto {
+  border: 1px solid var(--linea);
+  background: #ffffff;
+  transition: border-color 0.2s ease;
+}
+
+.producto:hover { border-color: #cfc9b6; }
+
+/* Todas las fotos con la misma proporción: tarjetas iguales */
+.producto .card-img-top,
+.sin-foto {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Marcador que imagenes.js pone cuando falta la foto de un producto */
+.sin-foto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hover);
+  color: var(--muted);
+  font-size: 0.9rem;
+  border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0 0;
+}
+
+.producto .card-title { font-weight: 600; }
+
+.precio {
+  font-weight: 600;
+  color: var(--verde);         /* 6.4:1 sobre blanco */
+}
+
+/* ===== 6. Carrito ===== */
+#mi-pedido,
+.card { border-color: var(--linea); }
+
+#lista-pedido li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--linea);
+}
+
+.btn-quitar {
+  border: 0;
+  background: none;
+  color: var(--muted);
+  text-decoration: underline;
+  padding: 0.15rem 0.4rem;
+  margin-left: 0.5rem;
+}
+
+.btn-quitar:hover { color: #b00020; }
+
+/* ===== 7. Impacto, acordeón y formulario ===== */
+.tarjeta-fondo {
+  background: #ffffff;
+  border-left: 3px solid var(--verde);
+}
+
+.accordion {
+  --bs-accordion-border-color: var(--linea);
+  --bs-accordion-active-bg: var(--hover);
+  --bs-accordion-active-color: var(--tinta);
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 0.2rem rgba(31, 36, 33, 0.25);
+}
+
+.form-control:focus,
+.form-check-input:focus {
+  border-color: var(--tinta);
+  box-shadow: 0 0 0 0.2rem rgba(31, 36, 33, 0.2);
+}
+
+.form-check-input:checked {
+  background-color: var(--tinta);
+  border-color: var(--tinta);
+}
+
+.error-msg {
+  color: #b00020;              /* 6.8:1 sobre blanco */
+  font-size: 0.875rem;
+}
+
+/* ===== 8. Pie de página ===== */
+footer { background: transparent; color: var(--muted); font-size: 0.95rem; }
+footer h2 { color: var(--tinta); font-weight: 600; }
+.texto-suave { color: var(--muted); }
+
+/* ===== 9. Selector de talla (poleras y polos) ===== */
+.tallas { border: 0; padding: 0; margin-bottom: 0; }
+.tallas legend { float: none; width: auto; font-size: 0.85rem; }
+
+.btn-talla {
+  --bs-btn-color: var(--tinta);
+  --bs-btn-bg: #ffffff;
+  --bs-btn-border-color: var(--linea);
+  --bs-btn-hover-color: var(--tinta);
+  --bs-btn-hover-bg: var(--hover);
+  --bs-btn-hover-border-color: #cfc9b6;
+  --bs-btn-focus-shadow-rgb: 31, 36, 33;
+}
+
+/* Talla elegida: tinta sólida */
+.btn-check:checked + .btn-talla {
+  --bs-btn-active-color: #ffffff;
+  --bs-btn-active-bg: var(--tinta);
+  --bs-btn-active-border-color: var(--tinta);
+  color: #ffffff;
+  background-color: var(--tinta);
+  border-color: var(--tinta);
+}
+
+/* ===== 10. Portada con imagen difuminada hacia la sección de abajo ===== */
+.hero-difuminado { border-bottom: 0 !important; margin-bottom: 0; }
+
+.hero-img-difuminada {
+  /* Sin marco ni sombra: los bordes se funden con el fondo de la página */
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0, #000 10%, #000 72%, transparent 100%),
+    linear-gradient(to right, transparent 0, #000 14%, #000 86%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, transparent 0, #000 10%, #000 72%, transparent 100%),
+    linear-gradient(to right, transparent 0, #000 14%, #000 86%, transparent 100%);
+  mask-composite: intersect;
+}
+
+/* ===== 11. Contacto y redes en el pie de página ===== */
+.contacto-lista li { margin-bottom: 0.35rem; }
+.contacto-lista a { color: var(--muted); text-decoration: none; }
+.contacto-lista a:hover { color: var(--tinta); text-decoration: underline; }
+.contacto-lista .bi { margin-right: 0.4rem; color: var(--verde); }
+
+/* ===== 12. Contador del carrito en la barra + aviso al añadir ===== */
+.btn-carrito { position: relative; }
+.carrito-contador {
+  position: absolute; top: -5px; right: -6px;
+  min-width: 1.15rem; height: 1.15rem; padding: 0 0.3rem;
+  border-radius: 999px; background: var(--verde); color: #fff;
+  font-size: 0.68rem; font-weight: 600; line-height: 1.15rem; text-align: center;
+}
+.carrito-contador[hidden] { display: none; }
+.carrito-contador.bump { animation: rebote 0.45s ease; }
+@keyframes rebote { 30% { transform: scale(1.5); } 60% { transform: scale(0.9); } 100% { transform: scale(1); } }
+
+.btn-anadir.anadido { --bs-btn-bg: var(--verde); --bs-btn-border-color: var(--verde); background-color: var(--verde); border-color: var(--verde); }
+
+.toast-kori {
+  position: fixed; left: 50%; bottom: 1.25rem; z-index: 1080;
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.65rem 0.65rem 0.65rem 1.1rem;
+  background: var(--tinta); color: #fff; border-radius: 999px;
+  box-shadow: 0 12px 32px -10px rgba(31, 36, 33, 0.5);
+  font-size: 0.92rem; max-width: calc(100vw - 2rem);
+  opacity: 0; transform: translate(-50%, 16px); pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.toast-kori.visible { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.toast-kori-enlace {
+  color: var(--tinta); background: #fff; text-decoration: none; font-weight: 500;
+  padding: 0.3rem 0.8rem; border-radius: 999px; white-space: nowrap;
+}
+.toast-kori-enlace:hover { background: var(--hover); color: var(--tinta); }
+
+/* ===== 13. Página de carrito ===== */
+.panel-carrito { border-radius: 1rem; }
+@media (min-width: 992px) { .panel-fijo { position: sticky; top: 1.25rem; } }
+
+.item-carrito {
+  display: grid; grid-template-columns: 72px 1fr auto; gap: 1rem; align-items: center;
+  padding: 0.95rem 0; border-bottom: 1px solid var(--linea);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.item-carrito.entrando { animation: itemEntra 0.55s cubic-bezier(.2,.7,.2,1) both; }
+.item-carrito.saliendo { opacity: 0; transform: translateX(28px) scale(0.98); }
+@keyframes itemEntra { from { opacity: 0; transform: translateY(14px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+
+.item-foto { width: 72px; height: 72px; object-fit: cover; border-radius: 0.7rem; background: var(--hover); }
+.item-nombre { font-weight: 600; margin: 0; line-height: 1.3; }
+.item-unidad { color: var(--muted); font-size: 0.85rem; margin: 0 0 0.45rem; }
+.item-lado { display: flex; flex-direction: column; align-items: flex-end; gap: 0.35rem; }
+.item-subtotal { font-weight: 600; color: var(--verde); }
+.item-quitar { border: 0; background: none; color: var(--muted); padding: 0.2rem 0.4rem; border-radius: 0.4rem; transition: color 0.2s, background 0.2s; }
+.item-quitar:hover { color: #b00020; background: var(--hover); }
+
+.stepper { display: inline-flex; align-items: center; border: 1px solid var(--linea); border-radius: 999px; background: #fff; }
+.stepper-btn { border: 0; background: none; width: 2rem; height: 2rem; border-radius: 50%; color: var(--tinta); transition: background 0.2s; }
+.stepper-btn:hover { background: var(--hover); }
+.stepper-valor { min-width: 1.8rem; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; }
+.stepper-valor.bump { animation: rebote 0.35s ease; }
+
+.enlace-seguir { display: inline-block; margin-top: 1rem; color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+.enlace-seguir:hover { color: var(--tinta); }
+
+.vacio-carrito { padding: 4rem 1rem; animation: itemEntra 0.6s both; }
+.vacio-icono { font-size: 3rem; color: var(--verde); display: block; margin-bottom: 0.5rem; }
+
+/* Métodos de pago como tarjetas elegibles */
+.pago-grupo { display: grid; gap: 0.6rem; }
+.pago-opcion { display: block; margin: 0; cursor: pointer; position: relative; }
+.pago-opcion input { position: absolute; opacity: 0; inset: 0; }
+.pago-caja {
+  display: flex; align-items: center; gap: 0.8rem; padding: 0.75rem 1rem;
+  border: 1px solid var(--linea); border-radius: 0.8rem; background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s, transform 0.2s;
+}
+.pago-caja .bi { font-size: 1.4rem; color: var(--verde); }
+.pago-caja strong { display: block; font-weight: 600; }
+.pago-caja small { color: var(--muted); }
+.pago-opcion:hover .pago-caja { border-color: #cfc9b6; transform: translateX(2px); }
+.pago-opcion input:checked + .pago-caja { border-color: var(--tinta); box-shadow: 0 0 0 1px var(--tinta); background: var(--hover); }
+.pago-opcion input:focus-visible + .pago-caja { outline: 3px solid rgba(31, 36, 33, 0.35); outline-offset: 2px; }
+.pago-grupo.sacudir { animation: sacudir 0.45s; }
+@keyframes sacudir { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+.detalle-pago { min-height: 2.8em; margin: 0.8rem 0 0; font-size: 0.88rem; color: var(--muted); }
+.detalle-pago.activo { animation: itemEntra 0.4s both; }
+
+.total-grande { font-size: 1.7rem; font-variant-numeric: tabular-nums; }
+
+/* Reparto de la compra */
+.impacto-mini { margin-top: 1rem; }
+.impacto-barra { display: flex; height: 8px; background: var(--linea); border-radius: 999px; overflow: hidden; gap: 2px; }
+.impacto-barra span { display: block; transform-origin: left; animation: crece 0.9s cubic-bezier(.2,.7,.2,1) both; }
+.impacto-barra .b1 { width: 20%; background: var(--verde); }
+.impacto-barra .b2 { width: 20%; background: #c29b38; animation-delay: 0.1s; }
+.impacto-barra .b3 { width: 20%; background: #7a8f84; animation-delay: 0.2s; }
+@keyframes crece { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.impacto-leyenda { margin-top: 0.7rem; }
+.impacto-leyenda li { display: flex; align-items: center; gap: 0.5rem; padding: 0.15rem 0; color: var(--muted); }
+.impacto-leyenda strong { margin-left: auto; color: var(--tinta); font-variant-numeric: tabular-nums; }
+.punto { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.punto.p1 { background: var(--verde); } .punto.p2 { background: #c29b38; } .punto.p3 { background: #7a8f84; }
+
+@media (max-width: 575px) {
+  .item-carrito { grid-template-columns: 60px 1fr; }
+  .item-foto { width: 60px; height: 60px; }
+  .item-lado { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; align-items: center; }
+}
+
+/* ===== 14. Inicio: estética minimalista futurista y mezcla al hacer scroll ===== */
+.aurora {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(55vmax 38vmax at calc(88% - var(--avance, 0) * 40%) calc(8% + var(--avance, 0) * 62%), rgba(45, 106, 79, 0.13), transparent 62%),
+    radial-gradient(48vmax 34vmax at calc(6% + var(--avance, 0) * 46%) calc(86% - var(--avance, 0) * 56%), rgba(224, 181, 60, 0.15), transparent 62%);
+}
+.barra-progreso {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 1050;
+  transform: scaleX(0); transform-origin: left;
+  background: linear-gradient(90deg, var(--verde), #c29b38);
+}
+
+.home .navbar {
+  position: sticky; top: 0; z-index: 1030;
+  background: rgba(252, 251, 247, 0.72);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border-color: rgba(45, 106, 79, 0.12) !important;
+}
+
+.home h1, .home #titulo-por-que { font-weight: 300 !important; letter-spacing: -0.03em; }
+.home .lead { font-weight: 300; }
+.titulo-kori {
+  background: linear-gradient(100deg, var(--tinta) 25%, var(--verde) 65%, #c29b38);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+}
+.home #titulo-por-que::after {
+  content: ""; display: block; width: 56px; height: 2px; margin-top: 0.7rem;
+  background: linear-gradient(90deg, var(--verde), #c29b38);
+}
+
+/* La sección de abajo sube y se solapa con la portada: se mezclan, sin corte */
+@media (min-width: 768px) { .home #por-que-ayudamos { margin-top: -3.5rem; position: relative; } }
+.home .hero { padding-bottom: 3rem !important; }
+
+/* Tarjetas tipo cristal */
+.home .card {
+  background: rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border: 1px solid rgba(45, 106, 79, 0.14); border-radius: 1rem;
+  box-shadow: 0 14px 40px -18px rgba(45, 106, 79, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.home .tarjeta-fondo { position: relative; overflow: hidden; border-left: 1px solid rgba(45, 106, 79, 0.14); }
+.home .tarjeta-fondo::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--verde), transparent);
+}
+.home .tarjeta-fondo:hover { transform: translateY(-4px); box-shadow: 0 20px 44px -16px rgba(45, 106, 79, 0.4); }
+
+.home .accordion { --bs-accordion-bg: transparent; --bs-accordion-border-width: 0; }
+.home .accordion-item {
+  background: rgba(255, 255, 255, 0.5); border: 1px solid rgba(45, 106, 79, 0.14);
+  border-radius: 0.9rem !important; margin-bottom: 0.6rem; overflow: hidden;
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+}
+.home .accordion-button { background: transparent; box-shadow: none; }
+.home .accordion-button:not(.collapsed) { background: rgba(45, 106, 79, 0.07); }
+
+/* Antes de que corra el script, nada parpadea; sin movimiento, todo visible */
+.mezcla-on [data-mezcla] { opacity: 0; will-change: opacity, transform, filter; }
+.sin-mezcla [data-mezcla] { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .item-carrito, .item-carrito.entrando, .impacto-barra span, .vacio-carrito, .detalle-pago.activo { animation: none; transition: none; }
+}
+
+/* ===== 14. Carrusel de prendas (página principal) ===== */
+.carrusel-flechas { display: flex; gap: 0.5rem; flex-shrink: 0; }
+.carrusel-btn {
+  width: 2.75rem; height: 2.75rem; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; font-size: 1.1rem;
+  --bs-btn-border-color: var(--linea);
+}
+.btn-ghost.carrusel-btn { border: 1px solid var(--linea); }
+.carrusel-btn:disabled { opacity: 0.35; }
+
+.carrusel-pista {
+  display: flex; gap: 1rem;
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 0.25rem 0.1rem 0.75rem;
+  scrollbar-width: thin; scrollbar-color: var(--linea) transparent;
+  cursor: grab;
+}
+.carrusel-pista.arrastrando { cursor: grabbing; scroll-snap-type: none; }
+.carrusel-pista:focus-visible { outline: 2px solid var(--verde); outline-offset: 4px; border-radius: 0.5rem; }
+.carrusel-item { min-width: 0; flex: 0 0 min(15rem, 72%); scroll-snap-align: start; }
+
+.producto-mini {
+  border: 1px solid var(--linea); background: #fff; color: inherit;
+  transition: border-color 0.2s ease;
+}
+.producto-mini:hover { border-color: #cfc9b6; color: inherit; }
+.producto-mini .card-img-top { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; user-select: none; }
+
+/* ===== 15. Carrito de la barra: más grande ===== */
+.btn-carrito { padding: 0.3rem 0.6rem; }
+.btn-carrito .bi { font-size: 1.6rem; line-height: 1; vertical-align: middle; }
+.btn-carrito .carrito-contador { top: -2px; right: -4px; }
+
+/* ===== 16. Difuminado en los bordes del carrusel ===== */
+.carrusel-pista {
+  --desv-izq: 0px; --desv-der: 0px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--desv-izq), #000 calc(100% - var(--desv-der)), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 var(--desv-izq), #000 calc(100% - var(--desv-der)), transparent 100%);
+}
+.carrusel-pista.desv-izq { --desv-izq: 5rem; }
+.carrusel-pista.desv-der { --desv-der: 5rem; }
+
+/* ===== 17. Página de producto ===== */
+.foto-detalle { width: 100%; border: 1px solid var(--linea); }
+.producto-detalle fieldset { border: 0; padding: 0; margin-bottom: 0; }
+.producto-detalle legend { float: none; width: auto; font-size: 0.9rem; }
+.color-grupo { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.color-opcion {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.35rem 0.8rem 0.35rem 0.4rem;
+  border: 1px solid var(--linea); border-radius: 999px; background: #fff;
+  font-size: 0.9rem; cursor: pointer; transition: border-color 0.2s, background 0.2s;
+}
+.color-opcion:hover { background: var(--hover); }
+.color-bola { width: 1.4rem; height: 1.4rem; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.25); }
+.btn-check:checked + .color-opcion { border-color: var(--tinta); box-shadow: 0 0 0 1px var(--tinta); }
+.btn-check:focus-visible + .color-opcion { outline: 2px solid var(--verde); outline-offset: 2px; }
+.producto-detalle .stepper-btn { width: 2.5rem; height: 2.5rem; }
+.producto-detalle .stepper-valor { min-width: 2.5rem; font-size: 1.1rem; }
+
+/* ===== 18. Catálogo estilo tienda: solo foto, nombre y precio ===== */
+.producto-tienda { display: block; color: inherit; text-decoration: none; }
+.producto-tienda:hover { color: inherit; }
+.producto-tienda-foto { overflow: hidden; border-radius: 0.6rem; background: var(--hover); }
+.producto-tienda-foto img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; transition: transform 0.4s ease; }
+.producto-tienda:hover .producto-tienda-foto img,
+.producto-tienda:focus-visible .producto-tienda-foto img { transform: scale(1.04); }
+.producto-tienda:focus-visible { outline: 2px solid var(--verde); outline-offset: 4px; border-radius: 0.6rem; }
+.producto-tienda .sin-foto { aspect-ratio: 1 / 1; border-radius: 0.6rem; }
+.producto-tienda-nombre { margin: 0.75rem 0 0.15rem; font-weight: 600; }
+.producto-tienda-precio { margin: 0; }
+@media (prefers-reduced-motion: reduce) { .producto-tienda-foto img { transition: none; } }
