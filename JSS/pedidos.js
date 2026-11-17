@@ -1,72 +1,47 @@
 // ==========================================
-// LÓGICA DEL CARRITO DE COMPRAS - KORI STORE
+// CATÁLOGO - KORI STORE
+// Añade productos al carrito. El carrito se guarda en el navegador
+// (localStorage) y se ve y se gestiona en carrito.html.
 // ==========================================
 
-// Recuperar carrito guardado o iniciar uno vacío
-let carrito = JSON.parse(localStorage.getItem('kori_carrito')) || [];
+let carrito = [];
+try { carrito = JSON.parse(localStorage.getItem('kori_carrito')) || []; } catch (e) { carrito = []; }
 
-// Elementos del DOM
-const botonesAnadir = document.querySelectorAll('.btn-anadir');
-const listaPedido = document.getElementById('lista-pedido');
-const totalSpan = document.getElementById('total');
-const pedidoVacio = document.getElementById('pedido-vacio');
-const avisoLector = document.getElementById('aviso');
-
-// Función para actualizar la visualización del carrito en la página
-function actualizarCarrito() {
-    if (!listaPedido) return;
-
-    listaPedido.innerHTML = '';
-    let total = 0;
-
-    if (carrito.length === 0) {
-        pedidoVacio.classList.remove('d-none');
-        totalSpan.textContent = 'S/ 0.00';
-        avisoLector.textContent = 'Tu carrito está vacío.';
-        localStorage.removeItem('kori_carrito');
-        localStorage.removeItem('kori_total');
-        return;
-    }
-
-    pedidoVacio.classList.add('d-none');
-
-    carrito.forEach((producto, index) => {
-        total += producto.precio * producto.cantidad;
-
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <span>${producto.nombre} (x${producto.cantidad})</span>
-            <span>S/ ${(producto.precio * producto.cantidad).toFixed(2)}
-                <button type="button" class="btn-quitar" data-index="${index}"
-                        aria-label="Quitar ${producto.nombre}">Quitar</button>
-            </span>
-        `;
-        listaPedido.appendChild(li);
-    });
-
-    totalSpan.textContent = `S/ ${total.toFixed(2)}`;
-    avisoLector.textContent = `Tienes ${carrito.length} productos en tu carrito. Total: S/ ${total.toFixed(2)}`;
-
-    // Guardar en el almacenamiento local del navegador para usarlo en el formulario
-    localStorage.setItem('kori_carrito', JSON.stringify(carrito));
-    localStorage.setItem('kori_total', total.toFixed(2));
-
-    // Activar botones de quitar de cada ítem
-    document.querySelectorAll('.btn-quitar').forEach(boton => {
-        boton.addEventListener('click', (e) => {
-            const index = e.currentTarget.getAttribute('data-index');
-            carrito.splice(index, 1);
-            actualizarCarrito();
-        });
-    });
+function guardarCarrito() {
+    const total = carrito.reduce((s, p) => s + p.precio * p.cantidad, 0);
+    try {
+        localStorage.setItem('kori_carrito', JSON.stringify(carrito));
+        localStorage.setItem('kori_total', total.toFixed(2));
+    } catch (e) { /* sin almacenamiento disponible */ }
+    window.dispatchEvent(new Event('kori:carrito'));   // avisa al contador de la barra
 }
 
-// Evento para agregar productos desde el catálogo
-botonesAnadir.forEach(boton => {
-    boton.addEventListener('click', (e) => {
-        const article = e.target.closest('.producto');
+// Aviso flotante: "Añadido ... Ver carrito"
+let temporizadorToast;
+function mostrarToast(nombre) {
+    let toast = document.getElementById('toast-kori');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast-kori';
+        toast.className = 'toast-kori';
+        toast.setAttribute('role', 'status');
+        document.body.appendChild(toast);
+    }
+    toast.innerHTML = '<span class="toast-kori-texto"></span>' +
+        '<a href="carrito.html" class="toast-kori-enlace">Ver carrito <i class="bi bi-arrow-right" aria-hidden="true"></i></a>';
+    toast.querySelector('.toast-kori-texto').textContent = `${nombre} añadido`;
+    toast.classList.add('visible');
+    clearTimeout(temporizadorToast);
+    temporizadorToast = setTimeout(() => toast.classList.remove('visible'), 3200);
+}
+
+document.querySelectorAll('.btn-anadir').forEach(boton => {
+    boton.addEventListener('click', () => {
+        const article = boton.closest('.producto');
         let nombre = article.getAttribute('data-nombre');
         const precio = parseFloat(article.getAttribute('data-precio'));
+        const foto = article.querySelector('.card-img-top');
+        const imagen = foto && foto.tagName === 'IMG' ? foto.getAttribute('src') : null;
 
         // Poleras y polos: hay que elegir talla (el resto de productos no tiene selector)
         const grupoTalla = article.querySelector('.tallas');
@@ -82,26 +57,22 @@ botonesAnadir.forEach(boton => {
             nombre += ` - Talla ${elegida.value}`;
         }
 
-        // Verificar si el producto ya está en el carrito
-        const productoExistente = carrito.find(item => item.nombre === nombre);
-        if (productoExistente) {
-            productoExistente.cantidad += 1;
+        const existente = carrito.find(item => item.nombre === nombre);
+        if (existente) {
+            existente.cantidad += 1;
         } else {
-            carrito.push({ nombre, precio, cantidad: 1 });
+            carrito.push({ nombre, precio, cantidad: 1, imagen });
         }
+        guardarCarrito();
+        mostrarToast(nombre);
 
-        actualizarCarrito();
-
-        // Notificación accesible
-        if (avisoLector) {
-            avisoLector.textContent = `Se añadió ${nombre} al carrito.`;
-        }
+        // Confirmación en el propio botón
+        const original = boton.dataset.texto || boton.textContent;
+        boton.dataset.texto = original;
+        boton.textContent = 'Añadido ✓';
+        boton.classList.add('anadido');
+        setTimeout(() => { boton.textContent = original; boton.classList.remove('anadido'); }, 1200);
     });
-});
-
-// Cargar el carrito al iniciar la página
-document.addEventListener('DOMContentLoaded', () => {
-    actualizarCarrito();
 });
 
 // Al elegir una talla, se borra el aviso de error

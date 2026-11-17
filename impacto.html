@@ -8,18 +8,20 @@
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
     crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="STYLE/marca.css">
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous" defer></script>
+  <script src="JSS/nav-carrito.js" defer></script>
 </head>
 <body>
 
   <!-- Barra de navegación -->
   <nav class="navbar navbar-expand-md navbar-light border-bottom">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html">Kori Store</a>
+      <a class="navbar-brand fw-bold fs-4" href="index.html">Kori Store</a>
       <button class="navbar-toggler" type="button"
               data-bs-toggle="collapse" data-bs-target="#menu"
               aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
@@ -27,9 +29,10 @@
       </button>
       <div class="collapse navbar-collapse" id="menu">
         <ul class="navbar-nav ms-auto gap-2 py-2 py-md-0 align-items-md-center">
-          <li class="nav-item"><a class="btn btn-ghost btn-sm" href="index.html">Catálogo</a></li>
+          <li class="nav-item"><a class="btn btn-ghost btn-sm" href="catalogo.html">Catálogo</a></li>
           <li class="nav-item"><a class="btn btn-marca btn-sm" aria-current="page" href="impacto.html">¿Por qué ayudamos?</a></li>
-          <li class="nav-item"><a class="btn btn-ghost btn-sm" href="pedidos.html">Formulario de Envío</a></li>
+          <li class="nav-item"><a class="btn btn-ghost btn-sm" href="#contacto">Contáctanos</a></li>
+          <li class="nav-item"><a class="btn btn-ghost btn-sm btn-carrito" href="carrito.html" aria-label="Carrito de compras" title="Carrito"><i class="bi bi-cart3" aria-hidden="true"></i><span class="carrito-contador" id="carrito-contador" hidden>0</span><span class="d-md-none ms-2">Carrito</span></a></li>
         </ul>
       </div>
     </div>
@@ -39,7 +42,7 @@
 
     <section class="py-4 mb-4 border-bottom hero">
       <h1 class="display-6 fw-semibold">¿Por qué ayudamos?</h1>
-      <p class="lead mb-0">Conoce el propósito detrás de cada prenda y producto.</p>
+      <p class="lead mb-0">Conoce el propósito detrás de cada producto de merch.</p>
     </section>
 
     <!-- Historia de la especie -->
@@ -64,7 +67,7 @@
         <div class="col">
           <div class="card tarjeta-fondo h-100">
             <div class="card-body">
-              <h3 class="card-title h5">🌳 30% - Reforestación Activa</h3>
+              <h3 class="card-title h5">🌳 20% - Reforestación Activa</h3>
               <p class="card-text">Financiamos la siembra de árboles nativos para restaurar el corredor biológico de los bosques nublados donde habita la especie.</p>
             </div>
           </div>
@@ -72,7 +75,7 @@
         <div class="col">
           <div class="card tarjeta-fondo h-100">
             <div class="card-body">
-              <h3 class="card-title h5">🤝 40% - Comunidades Locales</h3>
+              <h3 class="card-title h5">🤝 20% - Comunidades Locales</h3>
               <p class="card-text">Invertimos en talleres de capacitación y comercio justo con guardianes y artesanos locales que protegen el área de conservación.</p>
             </div>
           </div>
@@ -80,7 +83,7 @@
         <div class="col">
           <div class="card tarjeta-fondo h-100">
             <div class="card-body">
-              <h3 class="card-title h5">🛡️ 30% - Monitoreo y Protección</h3>
+              <h3 class="card-title h5">🛡️ 20% - Monitoreo y Protección</h3>
               <p class="card-text">Adquirimos equipos de vigilancia, cámaras trampa y suministros para patrullajes en contra de la tala y caza ilegal.</p>
             </div>
           </div>
@@ -113,7 +116,7 @@
             </button>
           </h3>
           <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faq">
-            <div class="accordion-body">Añade productos al carrito desde el <a href="index.html">catálogo</a>, pulsa «Proceder al Formulario» y completa tus datos de envío.</div>
+            <div class="accordion-body">Añade productos al carrito desde el <a href="catalogo.html">catálogo</a>, pulsa «Proceder al Formulario» y completa tus datos de envío.</div>
           </div>
         </div>
 
@@ -133,17 +136,28 @@
     </section>
   </main>
 
-  <!-- Pie de página en tres columnas -->
-  <footer class="border-top py-4 mt-5">
+  <!-- Pie de página -->
+  <footer id="contacto" class="border-top py-4 mt-5">
     <div class="container">
       <div class="row g-4">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <h2 class="h5">Kori Store</h2>
           <p class="texto-suave mb-0">Merch oficial para la conservación del Mono Choro de Cola Amarilla.</p>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <h2 class="h5">Tus datos</h2>
           <p class="texto-suave mb-0">Se usan solo para coordinar la entrega de tu pedido, según la Ley N.° 29733.</p>
+        </div>
+        <div class="col-md-4">
+          <h2 class="h5">Contáctanos</h2>
+          <ul class="list-unstyled texto-suave contacto-lista mb-0">
+            <li><a href="mailto:koristore@gmail.com"><i class="bi bi-envelope" aria-hidden="true"></i> koristore@gmail.com</a></li>
+            <li><a href="tel:+51900000000"><i class="bi bi-telephone" aria-hidden="true"></i> +51 900 000 000</a></li>
+            <li><a href="https://wa.me/51900000000" target="_blank" rel="noopener"><i class="bi bi-whatsapp" aria-hidden="true"></i> WhatsApp</a></li>
+            <li><a href="https://www.instagram.com/koristore" target="_blank" rel="noopener"><i class="bi bi-instagram" aria-hidden="true"></i> Instagram</a></li>
+            <li><a href="https://www.tiktok.com/@koristore" target="_blank" rel="noopener"><i class="bi bi-tiktok" aria-hidden="true"></i> TikTok</a></li>
+            <li><a href="https://www.facebook.com/koristore" target="_blank" rel="noopener"><i class="bi bi-facebook" aria-hidden="true"></i> Facebook</a></li>
+          </ul>
         </div>
       </div>
       <p class="texto-suave small mt-4 mb-0">&copy; 2026 Kori Store - Iniciativa Académica de Conservación</p>
